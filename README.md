@@ -1,6 +1,6 @@
 # ICMR21_Real_DSR_Challenge
 Real World Depth Map Super-Resolution on the RGB-D-D Dataset (ICMR2021)
-![](https://github.com/Sunbaoli/ICMR21_Real_DSR_Challenge/blob/master/c.png)
+![](https://github.com/Sunbaoli/ICMR21_Real_DSR_Challenge/c.png)
 
 ## Dependences
 
