@@ -1,8 +1,8 @@
 import os
 import torch.nn as nn
 import torch.optim as optim
-from models.base_networks2 import *
-from models.generate_grad import *
+from base_networks2 import *
+from generate_grad import *
 from torchvision.transforms import *
 
 class Net(nn.Module):
