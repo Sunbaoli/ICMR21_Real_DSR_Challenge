@@ -4,7 +4,7 @@ from six.moves import urllib
 import tarfile
 from torchvision.transforms import Compose, CenterCrop, ToTensor
 
-from dataset import DatasetFromFolderEval, DatasetFromFolder
+from dataset import DatasetFromFolder, DatasetFromFolderEval
 
 def calculate_valid_crop_size(crop_size, upscale_factor):
     return crop_size - (crop_size % upscale_factor)
@@ -49,11 +49,11 @@ def input_rgb_transform():
 #         ToTensor(),
 #     ])
 "get the dataset for training"
-def get_training_set(data_dir, train_dataset, patch_size, data_augmentation):
+def get_training_set(data_dir, train_dataset, patch_size, scale, data_augmentation):
     dataset = join(data_dir, train_dataset)
     #crop_size = calculate_valid_crop_size(crop_size, upscale_factor)
 
-    return DatasetFromFolder(dataset, patch_size, data_augmentation,
+    return DatasetFromFolder(dataset, patch_size, scale, data_augmentation,
                              input_transform=input_transform(),
                              input_rgb_transform = input_rgb_transform(),
                              target_transform=target_transform())
@@ -76,23 +76,20 @@ def get_training_set(data_dir, train_dataset, patch_size, data_augmentation):
 #                              target3_transform=target3_transform(),
 #                              target4_transform=target4_transform(),
 #                              target5_transform=target5_transform())
-
-def get_eval_set(data_dir, test_dataset):
+def get_test_set(data_dir, test_dataset, scale):
     dataset = join(data_dir, test_dataset)
 
-    return DatasetFromFolderEval(dataset,
+    return DatasetFromFolderTest(dataset, scale,
+                             input_transform=input_transform(),
+                             input_rgb_transform=input_rgb_transform(),
+                             target_transform=target_transform())
+
+def get_eval_set(data_dir, test_dataset, scale):
+    dataset = join(data_dir, test_dataset)
+
+    return DatasetFromFolderEval(dataset,scale,
                              input_transform=input_transform(),
                              input_rgb_transform=input_rgb_transform())
 
-# def get_test_set(data_dir, dataset,hr_rgb, hr_depth, upscale_factor,patch_size):
-#     hr_dir = join(data_dir, hr_depth)
-#     hr_rgb = join(data_dir, hr_rgb)
-#     lr_dir = join(data_dir, dataset)
-#     #crop_size = calculate_valid_crop_size(crop_size, upscale_factor)
-
-#     return DatasetFromFolder(hr_dir, lr_dir,patch_size, upscale_factor, dataset, data_augmentation=False,
-#                              input_transform=input_transform(),
-#                              input_rgb_transform=input_rgb_transform(),
-#                              target_transform=target_transform())
 
 

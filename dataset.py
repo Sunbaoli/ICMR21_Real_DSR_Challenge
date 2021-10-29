@@ -197,7 +197,7 @@ class DatasetFromFolder(data.Dataset):
 
 "Read the data from folder in evaluation"
 class DatasetFromFolderEval(data.Dataset):
-    def __init__(self, dataset,
+    def __init__(self, dataset,scale,
                  input_transform=None, input_rgb_transform=None):
         super(DatasetFromFolderEval, self).__init__()
         # self.image_filepaths = [join(hr_dir, x) for x in listdir(hr_dir) if is_image_file(x)]
@@ -218,13 +218,13 @@ class DatasetFromFolderEval(data.Dataset):
         # print(i_dir)
         "Load the data by determining the type of the dataset"
         # print(i_dir.split('/')[-1])
-        if self.dataset.split('/')[-2] == 'test':
+        if self.dataset.split('/')[-2] == 'validate20':
             i_dir = self.all_dirs[index]
             # print(os.path.join(self.rgb_dir, os.path.splitext(file)[0] + '.png'))
             input_rgb = load_img(os.path.join(i_dir, i_dir.split('/')[-1] + '_RGB.jpg'), "rgb")
             lr = load_img(os.path.join(i_dir, i_dir.split('/')[-1] + '_LR_fill_depth.png'), "depth").astype('float32')
             input = Image.fromarray(lr).resize((256,192),Image.BICUBIC)
-        elif self.dataset.split('/')[-2] == 'Stage1':
+        elif self.dataset.split('/')[-2] == 'Stage1_new':
             i_file = self.all_files[index]
             # print(self.all_files)
             # print(i_file)
